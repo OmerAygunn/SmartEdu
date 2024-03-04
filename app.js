@@ -1,23 +1,49 @@
 const express = require('express');
-const app = express();
+const session = require('express-session')
+const MongoStore = require('connect-mongo');
+const pageRoutes =  require('./routes/pageRoutes')
+const courseRoutes =  require('./routes/courseRoute')
+const categoryRoutes = require('./routes/categoryRoutes')
+const authRoutes = require('./routes/authRoute')
+const Course = require('./models/Course')
 
+const app = express();
 app.set('view engine', 'ejs');
 
-// Specify the root directory for serving static files
-app.use(express.static('public'));
+// Gloabal Variables 
+global.userIN = null;
 
-app.get('/', (req, res) => {
-    res.render('index',{
-        pageName:"index"
-    });
-});
-app.get('/about',(req,res) =>{
-    res.render('about',{
-        pageName:"about"
-    })
-})
+
+// MİDDLEWARES
+
+app.use(express.static('public'));
+app.use(express.json()) // for parsing application/json
+app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+app.use(session({
+    secret: 'my_keyboard_cat',
+    resave: false,
+    saveUninitialized: true,
+    store: MongoStore.create({ mongoUrl: 'mongodb://127.0.0.1:27017/SmartEdu-db'})
+  }))
+  app.use('*',(req,res,next)=>{
+    userIN = req.session.userID
+    next();
+  })
+
+ 
+ 
+
+app.use('/',pageRoutes)
+app.use('/courses',courseRoutes)
+app.use('/categories',categoryRoutes)
+app.use('/users',authRoutes)
+
+
+
 
 const port = 3000;
 app.listen(port, () => {
     console.log(`Our Port is ${port}`);
 });
+
+
