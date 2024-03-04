@@ -7,10 +7,6 @@ exports.createUser = async (req, res) => {
     try {
         
         const user = User.create(req.body)
-        // res.status(201).json({
-        //     status: 'success',
-        //     user
-        // });
         res.status(201).render('login',{
             status: 'success',
             user,
