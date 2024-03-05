@@ -1,6 +1,7 @@
 const User = require('../models/User')
 const bcrypt = require('bcrypt')
-const session = require('express-session')
+const session = require('express-session');
+const Category = require('../models/Category');
 
 
 exports.createUser = async (req, res) => {
@@ -30,7 +31,10 @@ exports.loginUser = async (req, res) => {
     const same = await bcrypt.compare(password, user.password); 
     if (same) { 
         req.session.userID = user._id
-        res.redirect('/') 
+        res.redirect('/users/dashboard') 
+    }
+    else{
+        res.status(400).send("Password is wrong")
     }
   };
 exports.logoutUser = async (req,res) => {
@@ -41,9 +45,11 @@ exports.logoutUser = async (req,res) => {
 
 exports.dashboardPage = async(req,res) =>{
     const user = await User.findOne({_id:req.session.userID})
+    const category = await Category.find()
     res.render('dashboard',{
         pageName:'dashboard',
-        user
+        user,
+        category
     })
 }
 
