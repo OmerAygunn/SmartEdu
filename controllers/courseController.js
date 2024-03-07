@@ -25,6 +25,7 @@ exports.getAllCourses = async (req,res) =>{
    try{ 
     const categorySlug = req.query.categories;
     const category = await Category.findOne({slug:categorySlug})
+    
 
     let filter = {};
     if(categorySlug) {
@@ -57,20 +58,22 @@ exports.getAllCourses = async (req,res) =>{
 exports.getCourse = async (req, res) => {
     try {
         const course = await Course.findOne({ slug: req.params.slug }).populate('user');
-        const category = await Category.findById(course.category); // Kursun kategorisine göre kategori al
-        const user = await User.findById(req.session.userID)
+        const category = await Category.findById(course.category);
+        const user = await User.findById(req.session.userID);
+
         if (!course) {
             console.error('Course not found.');
             return res.status(404).render('course-single', {
                 course,
                 category,
-                user,
+                user, 
                 pageName: 'courses'
             });
         }
         res.status(200).render('course-single', {
             course,
             category,
+            user, 
             pageName: 'courses'
         });
     } catch (error) {
@@ -81,6 +84,7 @@ exports.getCourse = async (req, res) => {
         });
     }
 }
+
 
 exports.enrollCourse = async (req,res) => {
     try{

@@ -21,12 +21,16 @@
 						
 						<div class="post-content">
 							<div class="post-date">
-								<form method="POST" action="/courses/enroll">
-									<input type="hidden" name="course_id" value="<%= course._id %>">
-									<%= (user && !(user.courses.includes(course._id))) ? '<button class="btn btn-lg btn-warning text-white"><span>ENROLL</span></button>' : '' %>
+								<% 
+									if(user && user.role === 'student' && !(user.courses.includes(course._id) )) {  %>
+									<form method="POST" action="/courses/enroll">
+										<input type="hidden" name="course_id" value="<%= course._id %>">
+										<button class="btn btn-lg btn-warning text-white"><span>ENROLL</span></button>
+									</form>
+									<%	} %>
+									
 
 									 
-								</form>
 							</div>
 							
 						
