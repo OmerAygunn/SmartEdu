@@ -21,11 +21,16 @@
 						
 						<div class="post-content">
 							<div class="post-date">
-								<span class="day"><%= course.creadetAt.getDate() %></span>
+								<form method="POST" action="/courses/enroll">
+									<input type="hidden" name="course_id" value="<%= course._id %>">
+									<%= (user && !(user.courses.includes(course._id))) ? '<button class="btn btn-lg btn-warning text-white"><span>ENROLL</span></button>' : '' %>
 
-								<span class="month"><%= course.creadetAt.toLocaleString('en-US', { month: 'long' }) %>
-								</span>
+									 
+								</form>
 							</div>
+							
+						
+							
 							<div class="meta-info-blog">
 								<span><i class="fa fa-calendar"></i> <a href="#"><%= course.creadetAt.toDateString()  %></a> </span>
 							</div>
@@ -44,7 +49,7 @@
 					
 					<div class="blog-author">
 						<div class="author-bio">
-							<h3 class="author_name"><a href="#">Tom Jobs</a></h3>
+							<h3 class="author_name"><a href="#"><%= course.user.name %></a></h3>
 							<h5>CEO at <a href="#">SmartEDU</a></h5>
 							<p class="author_det">
 								Lorem ipsum dolor sit amet, consectetur adip, sed do eiusmod tempor incididunt  ut aut reiciendise voluptat maiores alias consequaturs aut perferendis doloribus omnis saperet docendi nec, eos ea alii molestiae aliquand.
@@ -75,12 +80,8 @@
 					<div class="widget-categories">
 						<h3 class="widget-title">Categories</h3>
 						<ul>
-							<li><a href="#">Political Science</a></li>
-							<li><a href="#">Business Leaders Guide</a></li>
-							<li><a href="#">Become a Product Manage</a></li>
-							<li><a href="#">Language Education</a></li>
-							<li><a href="#">Micro Biology</a></li>
-							<li><a href="#">Social Media Management</a></li>
+							<li><a href="#"><%= category.name %></a></li>
+							
 						</ul>
 					</div>
 				</div>

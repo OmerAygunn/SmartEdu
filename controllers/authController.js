@@ -2,6 +2,7 @@ const User = require('../models/User')
 const bcrypt = require('bcrypt')
 const session = require('express-session');
 const Category = require('../models/Category');
+const Course = require('../models/Course');
 
 
 exports.createUser = async (req, res) => {
@@ -44,12 +45,14 @@ exports.logoutUser = async (req,res) => {
 }
 
 exports.dashboardPage = async(req,res) =>{
-    const user = await User.findOne({_id:req.session.userID})
+    const user = await User.findOne({_id:req.session.userID}).populate('courses')
     const category = await Category.find()
+    const courses = await Course.find({user:req.session.userID})
     res.render('dashboard',{
         pageName:'dashboard',
         user,
-        category
+        category,
+        courses
     })
 }
 
