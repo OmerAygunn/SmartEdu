@@ -72,6 +72,7 @@ exports.dashboardPage = async(req,res) =>{
 exports.deleteUser = async(req,res) => {
     try{
         await User.findByIdAndDelete(req.params.id)
+        await Course.deleteMany({user:req.params.id})
         res.redirect('/users/dashboard')
            
     }
@@ -82,6 +83,8 @@ exports.deleteUser = async(req,res) => {
         });
     }
 }
+
+
 
 
   

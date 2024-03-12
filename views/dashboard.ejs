@@ -292,7 +292,7 @@
 									<th scope="row"> <%= user._id %> </th>
 									<td> <%= user.email  %> </td>
 									<td> <%= user.role  %> </td>
-									<td> <a class="btn btn-danger rounded-0 text-white" href="/users/delete/<%= user._id%>?_method=DELETE">Delete</a> </td>
+									<td> <a class="btn btn-danger rounded-0 text-white" href="/users/delete/<%= user._id%>?_method=DELETE" onclick="return confirm('Are you sure delete: <%= user.name %> ')" >Delete</a> </td>
 
 								  </tr>
 								</tbody>
