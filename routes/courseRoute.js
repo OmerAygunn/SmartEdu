@@ -8,5 +8,8 @@ router.route('/').get(courseController.getAllCourses)
 router.route('/:slug').get(courseController.getCourse)
 router.route('/enroll').post(courseController.enrollCourse)
 router.route('/relase').post(courseController.relaseCourse)
+router.route('/delete/:id').delete(courseController.deleteCourse);
+router.route('/update/:id').put(courseController.updatecourse)
+
 
 module.exports = router

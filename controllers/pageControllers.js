@@ -6,13 +6,18 @@ exports.getIndexPage = (req, res) => {
     });
 }
 
-exports.getAboutPage = (req,res) =>{
+exports.getAboutPage = (req, res) =>{
     res.render('about',{
         pageName:"about"
     })
 }
+exports.getContactPage = (req, res) =>{
+    res.render('contact',{
+        pageName:'contact'
+    })
+}
 
-exports.getRegisterPage = (req,res) => {
+exports.getRegisterPage = (req, res) => {
     res.render('register',{
         pageName:'register'
     })
